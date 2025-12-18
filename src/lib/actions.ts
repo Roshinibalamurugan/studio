@@ -1,12 +1,15 @@
+
 'use server';
 
 import { revalidatePath } from 'next/cache';
 import { showtimes } from './data';
 import type { Booking } from '@/types';
-import { getAuth } from 'firebase/auth';
 import { initializeFirebase } from '@/firebase';
+import { collection, doc, getDoc, getDocs, setDoc, query, where, orderBy } from 'firebase/firestore';
 
-let bookings: Booking[] = [];
+const { firestore } = initializeFirebase();
+const bookingsCollection = collection(firestore, 'bookings');
+
 
 export async function bookTickets(showtimeId: string, seatIds: string[], userId: string): Promise<{ success: boolean; message?: string; bookingId?: string }> {
     
@@ -21,6 +24,7 @@ export async function bookTickets(showtimeId: string, seatIds: string[], userId:
 
     const showtime = showtimes[showtimeIndex];
 
+    // This is still in-memory seat checking. For a real app, this should be a transaction.
     for (const seatId of seatIds) {
         const seatRow = seatId.charAt(0);
         const seatNumber = parseInt(seatId.substring(1));
@@ -44,26 +48,57 @@ export async function bookTickets(showtimeId: string, seatIds: string[], userId:
         }
     });
 
+    const bookingId = `B${Date.now()}`;
     const newBooking: Booking = {
-        id: `B${Date.now()}`,
+        id: bookingId,
         userId: userId,
         showtimeId: showtimeId,
         seats: seatIds.map(id => ({ row: id.charAt(0), number: parseInt(id.substring(1)) })),
         totalPrice: seatIds.length * showtime.price,
         bookingTime: new Date().toISOString(),
     };
-    bookings.push(newBooking);
+
+    try {
+        const bookingRef = doc(firestore, 'users', userId, 'bookings', bookingId);
+        await setDoc(bookingRef, newBooking);
+    } catch (error) {
+        console.error("Firestore booking error: ", error);
+        return { success: false, message: 'Could not save your booking. Please try again.' };
+    }
+    
 
     revalidatePath(`/book/${showtimeId}`);
+    revalidatePath('/bookings');
     
     return { success: true, bookingId: newBooking.id };
 }
 
-export async function getBookingById(bookingId: string) {
-    // In a real app, you'd also verify the user has permission to see this booking
-    return bookings.find(b => b.id === bookingId);
+export async function getBookingById(bookingId: string, userId: string) {
+    if (!userId) return null;
+    const docRef = doc(firestore, "users", userId, "bookings", bookingId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        return docSnap.data() as Booking;
+    } else {
+        // This might happen if a user tries to access a booking that isn't theirs.
+        // We could query all user bookings, but that is less secure and efficient.
+        // For now, we return null if not found under the current user.
+        return null;
+    }
 }
 
 export async function getBookingsByUserId(userId: string) {
-    return bookings.filter(b => b.userId === userId).sort((a, b) => new Date(b.bookingTime).getTime() - new Date(a.bookingTime).getTime());
+    if (!userId) return [];
+    
+    const userBookingsCol = collection(firestore, 'users', userId, 'bookings');
+    const q = query(userBookingsCol, orderBy('bookingTime', 'desc'));
+    
+    const querySnapshot = await getDocs(q);
+    const bookings: Booking[] = [];
+    querySnapshot.forEach((doc) => {
+        bookings.push(doc.data() as Booking);
+    });
+    
+    return bookings;
 }
