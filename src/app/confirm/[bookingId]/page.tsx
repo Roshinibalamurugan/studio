@@ -69,7 +69,7 @@ export default async function ConfirmationPage({ params }: ConfirmationPageProps
                 </div>
                 <div className="flex items-center justify-between">
                     <span className="text-muted-foreground">Total Price</span>
-                    <span className="font-bold text-lg">${booking.totalPrice.toFixed(2)}</span>
+                    <span className="font-bold text-lg">₹{booking.totalPrice.toFixed(2)}</span>
                 </div>
                  <div className="flex items-center justify-between">
                     <span className="text-muted-foreground">Booking ID</span>
@@ -85,3 +85,5 @@ export default async function ConfirmationPage({ params }: ConfirmationPageProps
     </div>
   );
 }
+
+    

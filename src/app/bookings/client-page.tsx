@@ -120,7 +120,7 @@ export function BookingsClientPage() {
                                 </div>
                                 <div className="flex items-center justify-between mt-2">
                                     <span className="font-semibold">Total Price</span>
-                                    <span className="font-bold text-lg text-primary">${booking.totalPrice.toFixed(2)}</span>
+                                    <span className="font-bold text-lg text-primary">₹{booking.totalPrice.toFixed(2)}</span>
                                 </div>
                                 <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
                                     <span>Booking ID</span>
@@ -137,3 +137,5 @@ export function BookingsClientPage() {
     </div>
   );
 }
+
+    
