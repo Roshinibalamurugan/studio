@@ -207,7 +207,7 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
                         </div>
                         <div className="flex justify-between items-center border-t pt-4">
                             <p className="text-lg font-semibold">Total Price:</p>
-                            <p className="text-2xl font-bold font-mono text-primary">₹{totalPrice}</p>
+                            <p className="text-2xl font-bold font-mono text-primary">${totalPrice}</p>
                         </div>
                     </>
                 ) : (

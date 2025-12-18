@@ -24,11 +24,11 @@ export default function ConfirmationClientPage({ bookingId }: ConfirmationPagePr
 
   const bookingRef = useMemoFirebase(() => {
     // Wait until we have a user and firestore instance
-    if (isUserLoading || !user || !firestore) {
+    if (!user || !firestore) {
       return null;
     }
     return doc(firestore, 'users', user.uid, 'bookings', bookingId);
-  }, [user, isUserLoading, firestore, bookingId]);
+  }, [user, firestore, bookingId]);
 
   const { data: booking, isLoading: isBookingLoading, error } = useDoc<Booking>(bookingRef);
 
@@ -47,7 +47,7 @@ export default function ConfirmationClientPage({ bookingId }: ConfirmationPagePr
   }, [isBookingLoading, error, booking, bookingRef]);
 
 
-  const isLoading = isUserLoading || isBookingLoading || !booking;
+  const isLoading = isUserLoading || isBookingLoading || !booking || !bookingRef;
 
   if (isLoading) {
     return (
@@ -108,7 +108,7 @@ export default function ConfirmationClientPage({ bookingId }: ConfirmationPagePr
                 </div>
                 <div className="flex items-center justify-between">
                     <span className="text-muted-foreground">Total Price</span>
-                    <span className="font-bold text-lg">₹{booking.totalPrice.toFixed(2)}</span>
+                    <span className="font-bold text-lg">${booking.totalPrice.toFixed(2)}</span>
                 </div>
                  <div className="flex items-center justify-between">
                     <span className="text-muted-foreground">Booking ID</span>
