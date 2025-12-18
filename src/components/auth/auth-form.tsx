@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -82,6 +83,7 @@ export function AuthForm({ mode }: AuthFormProps) {
             break;
           case 'auth/user-not-found':
           case 'auth/wrong-password':
+          case 'auth/invalid-credential':
              errorMessage = 'Invalid email or password.';
              break;
           case 'auth/invalid-email':
