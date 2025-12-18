@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -6,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { theaters, getTheaterById } from '@/lib/data';
 import type { Showtime } from '@/types';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 
 type ShowtimeSelectorProps = {
   showtimes: Showtime[];
@@ -19,11 +20,10 @@ export default function ShowtimeSelector({ showtimes: initialShowtimes }: Showti
   useEffect(() => {
       const today = new Date();
       const updatedShowtimes = initialShowtimes.map(st => {
-          const [hours, minutes] = st.time.split(':').map(Number);
-          const time = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hours, minutes).valueOf().toString();
+          const time = parse(st.time, 'HH:mm', today);
           return {
               ...st,
-              time
+              time: time.valueOf().toString(),
           }
       })
       setShowtimes(updatedShowtimes);

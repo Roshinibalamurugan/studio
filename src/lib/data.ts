@@ -255,12 +255,12 @@ export let showtimes: Showtime[] = [
 export const getMovieById = (id: string) => movies.find(m => m.id === id);
 export const getTheaterById = (id: string) => theaters.find(t => t.id === id);
 export const getShowtimeById = (id: string) => {
-    const today = new Date();
     const showtime = showtimes.find(st => st.id === id);
     if (!showtime) return undefined;
 
+    const today = new Date();
     const [hours, minutes] = showtime.time.split(':').map(Number);
-    const time = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hours, minutes).valueOf().toString();
+    const time = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hours, minutes);
 
     const generateSeats = (rows: number, cols: number): Seat[][] => {
         const seats: Seat[][] = [];
@@ -283,15 +283,10 @@ export const getShowtimeById = (id: string) => {
     
     return {
         ...showtime,
-        time,
-        seats: generateSeats(8,12)
+        time: time.valueOf().toString(),
+        seats: showtime.seats.length > 0 ? showtime.seats : generateSeats(8,12)
     };
 };
 export const getShowtimesForMovie = (movieId: string, date: string) => {
-    return showtimes.filter(st => st.movieId === movieId).map(showtime => {
-        const today = new Date();
-        const [hours, minutes] = showtime.time.split(':').map(Number);
-        const time = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hours, minutes).valueOf().toString();
-        return { ...showtime, time };
-    });
+    return showtimes.filter(st => st.movieId === movieId);
 };
