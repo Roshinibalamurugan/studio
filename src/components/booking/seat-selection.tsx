@@ -112,10 +112,10 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
 
       toast({
           title: "Booking Successful!",
-          description: "Redirecting to confirmation page...",
+          description: "Redirecting to the home page...",
       });
       // Optimistically navigate
-      router.push(`/confirm/${bookingId}`);
+      router.push(`/`);
 
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";
