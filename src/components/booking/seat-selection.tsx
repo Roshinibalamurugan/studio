@@ -134,7 +134,7 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button size="lg" className="w-full" disabled={isSubmitting || selectedSeats.length === 0}>
-          {isSubmitting ? 'Processing...' : `Pay $${totalPrice}`}
+          {isSubmitting ? 'Processing...' : `Pay Rs${totalPrice}`}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -207,7 +207,7 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
                         </div>
                         <div className="flex justify-between items-center border-t pt-4">
                             <p className="text-lg font-semibold">Total Price:</p>
-                            <p className="text-2xl font-bold font-mono text-primary">${totalPrice}</p>
+                            <p className="text-2xl font-bold font-mono text-primary">Rs{totalPrice}</p>
                         </div>
                     </>
                 ) : (
@@ -226,7 +226,7 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
                       onClick={handleBooking}
                       disabled={isSubmitting || selectedSeats.length === 0}
                     >
-                      {isSubmitting ? 'Processing...' : `Pay $${totalPrice}`}
+                      {isSubmitting ? 'Processing...' : `Pay Rs${totalPrice}`}
                     </Button>
                    ) : (
                     <LoginPromptDialog />
