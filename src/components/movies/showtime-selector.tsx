@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -12,8 +12,23 @@ type ShowtimeSelectorProps = {
   showtimes: Showtime[];
 };
 
-export default function ShowtimeSelector({ showtimes }: ShowtimeSelectorProps) {
+export default function ShowtimeSelector({ showtimes: initialShowtimes }: ShowtimeSelectorProps) {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showtimes, setShowtimes] = useState<Showtime[]>([]);
+
+  useEffect(() => {
+      const today = new Date();
+      const updatedShowtimes = initialShowtimes.map(st => {
+          const [hours, minutes] = st.time.split(':').map(Number);
+          const time = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hours, minutes).valueOf().toString();
+          return {
+              ...st,
+              time
+          }
+      })
+      setShowtimes(updatedShowtimes);
+
+  }, [initialShowtimes])
 
   const showtimesByTheater = showtimes.reduce((acc, showtime) => {
     const theaterId = showtime.theaterId;
@@ -47,7 +62,7 @@ export default function ShowtimeSelector({ showtimes }: ShowtimeSelectorProps) {
                     {showtimesByTheater[theaterId].map((showtime) => (
                       <Button key={showtime.id} asChild variant="outline" className="bg-background hover:bg-accent hover:border-primary/50">
                         <Link href={`/book/${showtime.id}`}>
-                          {format(new Date(parseInt(showtime.time)), 'p')}
+                          {showtime.time ? format(new Date(parseInt(showtime.time)), 'p') : ''}
                         </Link>
                       </Button>
                     ))}

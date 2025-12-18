@@ -229,35 +229,69 @@ export const theaters: Theater[] = [
 
 export let showtimes: Showtime[] = [
     // Today's showtimes
-    { id: 'st1_today', movieId: '1', theaterId: 't1', time: new Date().setHours(19, 0, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 12.50 },
-    { id: 'st2_today', movieId: '1', theaterId: 't1', time: new Date().setHours(22, 0, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 12.50 },
-    { id: 'st3_today', movieId: '1', theaterId: 't2', time: new Date().setHours(20, 0, 0, 0).valueOf().toString(), seats: generateSeats(10, 15), price: 15.00 },
-    { id: 'st4_today', movieId: '2', theaterId: 't2', time: new Date().setHours(18, 30, 0, 0).valueOf().toString(), seats: generateSeats(10, 15), price: 11.00 },
-    { id: 'st5_today', movieId: '2', theaterId: 't3', time: new Date().setHours(21, 0, 0, 0).valueOf().toString(), seats: generateSeats(5, 20), price: 10.00 },
-    { id: 'st6_today', movieId: '3', theaterId: 't1', time: new Date().setHours(17, 0, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 12.50 },
-    { id: 'st7_today', movieId: '3', theaterId: 't1', time: new Date().setHours(21, 30, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 12.50 },
-    { id: 'st8_today', movieId: '4', theaterId: 't2', time: new Date().setHours(23, 0, 0, 0).valueOf().toString(), seats: generateSeats(10, 15), price: 14.00 },
-    { id: 'st9_today', movieId: '5', theaterId: 't3', time: new Date().setHours(15, 0, 0, 0).valueOf().toString(), seats: generateSeats(5, 20), price: 10.50 },
-    { id: 'st10_today', movieId: '6', theaterId: 't1', time: new Date().setHours(14, 0, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 11.50 },
+    { id: 'st1_today', movieId: '1', theaterId: 't1', time: '19:00', seats: [], price: 12.50 },
+    { id: 'st2_today', movieId: '1', theaterId: 't1', time: '22:00', seats: [], price: 12.50 },
+    { id: 'st3_today', movieId: '1', theaterId: 't2', time: '20:00', seats: [], price: 15.00 },
+    { id: 'st4_today', movieId: '2', theaterId: 't2', time: '18:30', seats: [], price: 11.00 },
+    { id: 'st5_today', movieId: '2', theaterId: 't3', time: '21:00', seats: [], price: 10.00 },
+    { id: 'st6_today', movieId: '3', theaterId: 't1', time: '17:00', seats: [], price: 12.50 },
+    { id: 'st7_today', movieId: '3', theaterId: 't1', time: '21:30', seats: [], price: 12.50 },
+    { id: 'st8_today', movieId: '4', theaterId: 't2', time: '23:00', seats: [], price: 14.00 },
+    { id: 'st9_today', movieId: '5', theaterId: 't3', time: '15:00', seats: [], price: 10.50 },
+    { id: 'st10_today', movieId: '6', theaterId: 't1', time: '14:00', seats: [], price: 11.50 },
     // Tomorrow's showtimes
-    { id: 'st1', movieId: '1', theaterId: 't1', time: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(19, 0, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 12.50 },
-    { id: 'st2', movieId: '1', theaterId: 't1', time: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(22, 0, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 12.50 },
-    { id: 'st3', movieId: '1', theaterId: 't2', time: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(20, 0, 0, 0).valueOf().toString(), seats: generateSeats(10, 15), price: 15.00 },
-    { id: 'st4', movieId: '2', theaterId: 't2', time: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(18, 30, 0, 0).valueOf().toString(), seats: generateSeats(10, 15), price: 11.00 },
-    { id: 'st5', movieId: '2', theaterId: 't3', time: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(21, 0, 0, 0).valueOf().toString(), seats: generateSeats(5, 20), price: 10.00 },
-    { id: 'st6', movieId: '3', theaterId: 't1', time: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(17, 0, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 12.50 },
-    { id: 'st7', movieId: '3', theaterId: 't1', time: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(21, 30, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 12.50 },
-    { id: 'st8', movieId: '4', theaterId: 't2', time: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(23, 0, 0, 0).valueOf().toString(), seats: generateSeats(10, 15), price: 14.00 },
-    { id: 'st9', movieId: '5', theaterId: 't3', time: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(15, 0, 0, 0).valueOf().toString(), seats: generateSeats(5, 20), price: 10.50 },
-    { id: 'st10', movieId: '6', theaterId: 't1', time: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(14, 0, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 11.50 },
+    { id: 'st1', movieId: '1', theaterId: 't1', time: '19:00', seats: [], price: 12.50 },
+    { id: 'st2', movieId: '1', theaterId: 't1', time: '22:00', seats: [], price: 12.50 },
+    { id: 'st3', movieId: '1', theaterId: 't2', time: '20:00', seats: [], price: 15.00 },
+    { id: 'st4', movieId: '2', theaterId: 't2', time: '18:30', seats: [], price: 11.00 },
+    { id: 'st5', movieId: '2', theaterId: 't3', time: '21:00', seats: [], price: 10.00 },
+    { id: 'st6', movieId: '3', theaterId: 't1', time: '17:00', seats: [], price: 12.50 },
+    { id: 'st7', movieId: '3', theaterId: 't1', time: '21:30', seats: [], price: 12.50 },
+    { id: 'st8', movieId: '4', theaterId: 't2', time: '23:00', seats: [], price: 14.00 },
+    { id: 'st9', movieId: '5', theaterId: 't3', time: '15:00', seats: [], price: 10.50 },
+    { id: 'st10', movieId: '6', theaterId: 't1', time: '14:00', seats: [], price: 11.50 },
 ];
 
 export const getMovieById = (id: string) => movies.find(m => m.id === id);
 export const getTheaterById = (id: string) => theaters.find(t => t.id === id);
-export const getShowtimeById = (id: string) => showtimes.find(st => st.id === id);
-export const getShowtimesForMovie = (movieId: string, date: string) => {
-    return showtimes.filter(st => st.movieId === movieId);
-};
+export const getShowtimeById = (id: string) => {
+    const today = new Date();
+    const showtime = showtimes.find(st => st.id === id);
+    if (!showtime) return undefined;
 
+    const [hours, minutes] = showtime.time.split(':').map(Number);
+    const time = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hours, minutes).valueOf().toString();
+
+    const generateSeats = (rows: number, cols: number): Seat[][] => {
+        const seats: Seat[][] = [];
+        for (let i = 0; i < rows; i++) {
+            const row: Seat[] = [];
+            const rowChar = String.fromCharCode(65 + i);
+            for (let j = 0; j < cols; j++) {
+            const isUnavailable = Math.random() < 0.15;
+            row.push({
+                id: `${rowChar}${j + 1}`,
+                row: rowChar,
+                number: j + 1,
+                status: isUnavailable ? 'unavailable' : 'available',
+            });
+            }
+            seats.push(row);
+        }
+        return seats;
+    };
     
-    
+    return {
+        ...showtime,
+        time,
+        seats: generateSeats(8,12)
+    };
+};
+export const getShowtimesForMovie = (movieId: string, date: string) => {
+    return showtimes.filter(st => st.movieId === movieId).map(showtime => {
+        const today = new Date();
+        const [hours, minutes] = showtime.time.split(':').map(Number);
+        const time = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hours, minutes).valueOf().toString();
+        return { ...showtime, time };
+    });
+};

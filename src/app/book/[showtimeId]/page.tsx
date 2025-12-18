@@ -4,6 +4,7 @@ import { getShowtimeById, getMovieById, getTheaterById } from '@/lib/data';
 import { Clock, Film, MapPin, Calendar } from 'lucide-react';
 import { format } from 'date-fns';
 import SeatSelection from '@/components/booking/seat-selection';
+import type { Seat } from '@/types';
 
 type BookingPageProps = {
   params: {
@@ -11,10 +12,34 @@ type BookingPageProps = {
   };
 };
 
+const generateSeats = (rows: number, cols: number): Seat[][] => {
+  const seats: Seat[][] = [];
+  for (let i = 0; i < rows; i++) {
+    const row: Seat[] = [];
+    const rowChar = String.fromCharCode(65 + i);
+    for (let j = 0; j < cols; j++) {
+      const isUnavailable = Math.random() < 0.15;
+      row.push({
+        id: `${rowChar}${j + 1}`,
+        row: rowChar,
+        number: j + 1,
+        status: isUnavailable ? 'unavailable' : 'available',
+      });
+    }
+    seats.push(row);
+  }
+  return seats;
+};
+
 export default async function BookingPage({ params }: BookingPageProps) {
-  const showtime = getShowtimeById(params.showtimeId);
-  if (!showtime) {
+  const showtimeData = getShowtimeById(params.showtimeId);
+  if (!showtimeData) {
     notFound();
+  }
+
+  const showtime = {
+      ...showtimeData,
+      seats: showtimeData.seats.length > 0 ? showtimeData.seats : generateSeats(8,12),
   }
 
   const movie = getMovieById(showtime.movieId);
