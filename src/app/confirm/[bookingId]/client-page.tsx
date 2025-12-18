@@ -2,17 +2,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { notFound } from 'next/navigation';
-import { getBookingById } from '@/lib/actions';
-import { getShowtimeById, getMovieById, getTheaterById } from '@/lib/data';
+import { notFound, useRouter } from 'next/navigation';
 import type { Booking } from '@/types';
-import { useUser } from '@/firebase';
+import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
+import { getShowtimeById, getMovieById, getTheaterById } from '@/lib/data';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle, Film, MapPin, Calendar, Clock, Loader2 } from 'lucide-react';
+import { CheckCircle, MapPin, Calendar, Clock, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { doc } from 'firebase/firestore';
 
 type ConfirmationPageProps = {
   bookingId: string;
@@ -20,44 +19,39 @@ type ConfirmationPageProps = {
 
 export default function ConfirmationClientPage({ bookingId }: ConfirmationPageProps) {
   const { user, isUserLoading } = useUser();
+  const firestore = useFirestore();
   const router = useRouter();
-  const [booking, setBooking] = useState<Booking | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+
+  const bookingRef = useMemoFirebase(() => {
+    if (!user || !firestore) return null;
+    return doc(firestore, 'users', user.uid, 'bookings', bookingId);
+  }, [user, firestore, bookingId]);
+
+  const { data: booking, isLoading: isBookingLoading, error } = useDoc<Booking>(bookingRef);
 
   useEffect(() => {
-    if (isUserLoading) return;
-    if (!user) {
+    if (!isUserLoading && !user) {
       router.replace('/login');
-      return;
     }
+  }, [user, isUserLoading, router]);
 
-    const fetchBooking = async () => {
-      setIsLoading(true);
-      const fetchedBooking = await getBookingById(bookingId, user.uid);
-      if (!fetchedBooking) {
+  // If there's a Firestore error or the booking is explicitly null after loading, handle not found.
+  useEffect(() => {
+    if (!isBookingLoading && (error || !booking)) {
         notFound();
-        return;
-      }
-      setBooking(fetchedBooking);
-      setIsLoading(false);
-    };
+    }
+  }, [isBookingLoading, error, booking])
 
-    fetchBooking();
-  }, [bookingId, user, isUserLoading, router]);
 
-  if (isLoading || isUserLoading) {
+  const isLoading = isUserLoading || isBookingLoading;
+
+  if (isLoading || !booking) {
     return (
       <div className="container py-12 text-center">
         <Loader2 className="w-8 h-8 animate-spin mx-auto text-primary" />
         <p className="mt-4 text-muted-foreground">Loading your confirmation...</p>
       </div>
     );
-  }
-
-  if (!booking) {
-    // This can happen if the booking doesn't belong to the user
-    notFound();
-    return null;
   }
 
   const showtime = getShowtimeById(booking.showtimeId);

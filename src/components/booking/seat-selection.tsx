@@ -1,14 +1,15 @@
+
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
-import type { Showtime, Seat } from '@/types';
+import type { Showtime, Seat, Booking } from '@/types';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Ticket } from 'lucide-react';
-import { bookTickets } from '@/lib/actions';
-import { useUser } from '@/firebase';
+import { useUser, useFirestore, setDocumentNonBlocking } from '@/firebase';
+import { doc } from 'firebase/firestore';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,6 +21,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import Link from 'next/link';
 
 type SeatSelectionProps = {
   showtime: Showtime;
@@ -56,6 +58,7 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
   const router = useRouter();
   const { toast } = useToast();
   const { user, isUserLoading } = useUser();
+  const firestore = useFirestore();
 
   const handleSeatSelect = (seat: Seat) => {
     setSelectedSeats(prev => {
@@ -71,7 +74,7 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
   const totalPrice = (selectedSeats.length * showtime.price).toFixed(2);
 
   const handleBooking = async () => {
-    if (!user) {
+    if (!user || !firestore) {
         toast({
             title: "Authentication Required",
             description: "Please log in to book tickets.",
@@ -91,18 +94,28 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
     setIsSubmitting(true);
     
     try {
-      const seatIds = selectedSeats.map(s => s.id);
-      const result = await bookTickets(showtime.id, seatIds, user.uid);
+      const bookingId = `B${Date.now()}`;
+      const newBooking: Booking = {
+          id: bookingId,
+          userId: user.uid,
+          showtimeId: showtime.id,
+          seats: selectedSeats.map(s => ({ row: s.row, number: s.number })),
+          totalPrice: parseFloat(totalPrice),
+          bookingTime: new Date().toISOString(),
+      };
+
+      const bookingRef = doc(firestore, 'users', user.uid, 'bookings', bookingId);
       
-      if (result.success && result.bookingId) {
-        toast({
-            title: "Booking Successful!",
-            description: "Redirecting to confirmation page...",
-        });
-        router.push(`/confirm/${result.bookingId}`);
-      } else {
-        throw new Error(result.message || "Failed to book tickets. Seats may have been taken.");
-      }
+      // Use non-blocking write
+      setDocumentNonBlocking(bookingRef, newBooking, {});
+
+      toast({
+          title: "Booking Successful!",
+          description: "Redirecting to confirmation page...",
+      });
+      // Optimistically navigate
+      router.push(`/confirm/${bookingId}`);
+
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";
         toast({
@@ -224,5 +237,3 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
     </div>
   );
 }
-
-    

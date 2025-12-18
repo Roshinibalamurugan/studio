@@ -4,18 +4,15 @@
 import { revalidatePath } from 'next/cache';
 import { showtimes } from './data';
 import type { Booking } from '@/types';
-import { initializeFirebase } from '@/firebase';
-import { collection, doc, getDoc, getDocs, setDoc, query, where, orderBy } from 'firebase/firestore';
+// Firebase logic will be moved to client components. This file will be simplified.
 
 
+// This function is now simplified as the core logic is moved to the client.
+// It could be removed if all logic is on the client, but we'll keep the shell.
+// The primary booking logic now lives in the SeatSelection component.
 export async function bookTickets(showtimeId: string, seatIds: string[], userId: string): Promise<{ success: boolean; message?: string; bookingId?: string }> {
     
-    if (!userId) {
-        return { success: false, message: 'You must be logged in to book tickets.' };
-    }
-
-    const { firestore } = initializeFirebase();
-
+    // The in-memory update logic for optimistic UI remains, but Firestore logic is gone.
     const showtimeIndex = showtimes.findIndex(st => st.id === showtimeId);
     if (showtimeIndex === -1) {
         return { success: false, message: 'Showtime not found.' };
@@ -23,7 +20,6 @@ export async function bookTickets(showtimeId: string, seatIds: string[], userId:
 
     const showtime = showtimes[showtimeIndex];
 
-    // This is still in-memory seat checking. For a real app, this should be a transaction.
     for (const seatId of seatIds) {
         const seatRow = seatId.charAt(0);
         const seatNumber = parseInt(seatId.substring(1));
@@ -33,9 +29,7 @@ export async function bookTickets(showtimeId: string, seatIds: string[], userId:
             return { success: false, message: `Seat ${seatId} is no longer available. Please select different seats.` };
         }
     }
-    
-    await new Promise(res => setTimeout(res, 1000));
-    
+
     seatIds.forEach(seatId => {
         const seatRow = seatId.charAt(0);
         const seatNumber = parseInt(seatId.substring(1), 10);
@@ -46,60 +40,20 @@ export async function bookTickets(showtimeId: string, seatIds: string[], userId:
             showtimes[showtimeIndex].seats[rowIndex][colIndex].status = 'unavailable';
         }
     });
-
-    const bookingId = `B${Date.now()}`;
-    const newBooking: Booking = {
-        id: bookingId,
-        userId: userId,
-        showtimeId: showtimeId,
-        seats: seatIds.map(id => ({ row: id.charAt(0), number: parseInt(id.substring(1)) })),
-        totalPrice: seatIds.length * showtime.price,
-        bookingTime: new Date().toISOString(),
-    };
-
-    try {
-        const bookingRef = doc(firestore, 'users', userId, 'bookings', bookingId);
-        await setDoc(bookingRef, newBooking);
-    } catch (error) {
-        console.error("Firestore booking error: ", error);
-        return { success: false, message: 'Could not save your booking. Please try again.' };
-    }
     
+    // The booking ID will now be generated on the client, but we can simulate success.
+    const bookingId = `B${Date.now()}`;
 
     revalidatePath(`/book/${showtimeId}`);
     revalidatePath('/bookings');
     
-    return { success: true, bookingId: newBooking.id };
+    // This action no longer creates the booking in Firestore.
+    // It just validates and returns a success-like message. The client does the write.
+    return { success: true, bookingId: bookingId };
 }
 
-export async function getBookingById(bookingId: string, userId: string) {
-    if (!userId) return null;
-    const { firestore } = initializeFirebase();
-    const docRef = doc(firestore, "users", userId, "bookings", bookingId);
-    const docSnap = await getDoc(docRef);
+// These functions are no longer needed as they are handled client-side.
+// They are removed to avoid confusion and further errors.
+// export async function getBookingById(bookingId: string, userId: string) {}
+// export async function getBookingsByUserId(userId: string) {}
 
-    if (docSnap.exists()) {
-        return docSnap.data() as Booking;
-    } else {
-        // This might happen if a user tries to access a booking that isn't theirs.
-        // We could query all user bookings, but that is less secure and efficient.
-        // For now, we return null if not found under the current user.
-        return null;
-    }
-}
-
-export async function getBookingsByUserId(userId: string) {
-    if (!userId) return [];
-    
-    const { firestore } = initializeFirebase();
-    const userBookingsCol = collection(firestore, 'users', userId, 'bookings');
-    const q = query(userBookingsCol, orderBy('bookingTime', 'desc'));
-    
-    const querySnapshot = await getDocs(q);
-    const bookings: Booking[] = [];
-    querySnapshot.forEach((doc) => {
-        bookings.push(doc.data() as Booking);
-    });
-    
-    return bookings;
-}

@@ -1,8 +1,8 @@
+
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useUser } from '@/firebase';
-import { getBookingsByUserId } from '@/lib/actions';
+import { useEffect, useState, useMemo } from 'react';
+import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { getShowtimeById, getMovieById, getTheaterById } from '@/lib/data';
 import type { Booking, Movie, Theater, Showtime } from '@/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { collection, query, orderBy } from 'firebase/firestore';
 
 type EnrichedBooking = Booking & {
   movie: Movie | undefined;
@@ -21,36 +22,39 @@ type EnrichedBooking = Booking & {
 
 export function BookingsClientPage() {
   const { user, isUserLoading } = useUser();
+  const firestore = useFirestore();
   const router = useRouter();
-  const [bookings, setBookings] = useState<EnrichedBooking[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
+  const bookingsQuery = useMemoFirebase(() => {
+    if (!user || !firestore) return null;
+    return query(collection(firestore, 'users', user.uid, 'bookings'), orderBy('bookingTime', 'desc'));
+  }, [user, firestore]);
+
+  const { data: bookings, isLoading: areBookingsLoading } = useCollection<Booking>(bookingsQuery);
+
+  const [enrichedBookings, setEnrichedBookings] = useState<EnrichedBooking[]>([]);
+  
   useEffect(() => {
-    if (isUserLoading) {
-      return;
-    }
-    if (!user) {
-      router.replace('/login');
-      return;
-    }
-
-    const fetchBookings = async () => {
-      setIsLoading(true);
-      const userBookings = await getBookingsByUserId(user.uid);
-      const enrichedBookings = userBookings.map(booking => {
+    if (bookings) {
+      const enriched = bookings.map(booking => {
         const showtime = getShowtimeById(booking.showtimeId);
         const movie = showtime ? getMovieById(showtime.movieId) : undefined;
         const theater = showtime ? getTheaterById(showtime.theaterId) : undefined;
         return { ...booking, movie, theater, showtime };
       });
-      setBookings(enrichedBookings);
-      setIsLoading(false);
-    };
-
-    fetchBookings();
+      setEnrichedBookings(enriched);
+    }
+  }, [bookings]);
+  
+  useEffect(() => {
+    if (!isUserLoading && !user) {
+      router.replace('/login');
+    }
   }, [user, isUserLoading, router]);
 
-  if (isLoading || isUserLoading) {
+  const isLoading = isUserLoading || areBookingsLoading;
+
+  if (isLoading) {
     return (
       <div className="container py-12 text-center">
         <Loader2 className="w-8 h-8 animate-spin mx-auto text-primary" />
@@ -66,7 +70,7 @@ export function BookingsClientPage() {
         <p className="text-muted-foreground mt-2">Here's a list of all your movie tickets.</p>
       </div>
 
-      {bookings.length === 0 ? (
+      {enrichedBookings.length === 0 ? (
         <div className="text-center py-16 border-2 border-dashed rounded-lg">
             <Ticket className="w-16 h-16 mx-auto text-muted-foreground/50" />
             <h2 className="mt-6 text-xl font-semibold">No Bookings Yet</h2>
@@ -77,7 +81,7 @@ export function BookingsClientPage() {
         </div>
       ) : (
         <div className="space-y-6">
-          {bookings.map((booking) => (
+          {enrichedBookings.map((booking) => (
             <Card key={booking.id} className="overflow-hidden">
                 <div className="grid md:grid-cols-[120px_1fr] lg:grid-cols-[150px_1fr]">
                     <div className="relative h-48 md:h-full">
@@ -86,7 +90,7 @@ export function BookingsClientPage() {
                                 src={booking.movie.posterUrl}
                                 alt={booking.movie.title}
                                 fill
-                                className="object-cover"
+                                className="object-contain"
                                 sizes="(max-width: 768px) 100vw, 150px"
                             />
                         )}
@@ -137,5 +141,3 @@ export function BookingsClientPage() {
     </div>
   );
 }
-
-    
