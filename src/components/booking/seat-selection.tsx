@@ -102,6 +102,7 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
           seats: selectedSeats.map(s => ({ row: s.row, number: s.number })),
           totalPrice: parseFloat(totalPrice),
           bookingTime: new Date().toISOString(),
+          paymentReference: `PAY${Date.now()}`
       };
 
       const bookingRef = doc(firestore, 'users', user.uid, 'bookings', bookingId);

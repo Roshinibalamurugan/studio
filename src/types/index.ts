@@ -43,4 +43,5 @@ export type Booking = {
     seats: { row: string, number: number }[];
     totalPrice: number;
     bookingTime: string;
+    paymentReference?: string;
 }
