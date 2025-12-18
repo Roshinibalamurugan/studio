@@ -28,6 +28,30 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: "https",
+        hostname: "images.tv9telugu.com",
+      },
+      {
+        protocol: "https",
+        hostname: "mir-s3-cdn-cf.behance.net",
+      },
+      {
+        protocol: "https",
+        hostname: "www.theweek.in",
+      },
+      {
+        protocol: "https",
+        hostname: "www.themoviedb.org",
+      },
+      {
+        protocol: "https",
+        hostname: "gumlet.vikatan.com",
+      },
+      {
+        protocol: "https",
+        hostname: "d388d59m61mm0v.cloudfront.net",
+      },
     ],
   },
 };

@@ -3,38 +3,38 @@
     {
       "id": "movie-1",
       "description": "A placeholder image for a movie poster for Vikram",
-      "imageUrl": "https://images.unsplash.com/photo-1614851099511-752734913165?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx2aWtpbmclMjB3YXJyaW9yfGVufDB8fHx8MTc2NjA0MDAwMHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "viking warrior"
+      "imageUrl": "https://images.tv9telugu.com/wp-content/uploads/2022/06/vikram-3.jpg",
+      "imageHint": "action movie"
     },
     {
       "id": "movie-2",
       "description": "A placeholder image for a movie poster for Kaithi",
-      "imageUrl": "https://images.unsplash.com/photo-1505628346881-b72b27e84530?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXQlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjYwNDAxMDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "cat portrait"
+      "imageUrl": "https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/b4a1ba87123937.5daeb6af5f27c.jpg",
+      "imageHint": "thriller movie"
     },
     {
       "id": "movie-3",
       "description": "A placeholder image for a movie poster for Soorarai Pottru",
-      "imageUrl": "https://images.unsplash.com/photo-1436891620584-48f5721a3a37?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhaXJwbGFuZSUyMGluJTIwc2t5fGVufDB8fHx8MTc2NjA0MDIwMHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "airplane sky"
+      "imageUrl": "https://www.theweek.in/content/dam/week/news/entertainment/images/2020/10/26/Soorarai-Pottru-suriya.jpg",
+      "imageHint": "drama movie"
     },
     {
       "id": "movie-4",
       "description": "A placeholder image for a movie poster for 96",
-      "imageUrl": "https://images.unsplash.com/photo-1518895949257-7022751384d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyb21hbnRpYyUyMGNvdXBsZXxlbnwwfHx8fDE3NjYwNDAzMDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "romantic couple"
+      "imageUrl": "https://www.themoviedb.org/t/p/original/qzu94AvnZ1az30sTUuibx2bXpfs.jpg",
+      "imageHint": "romance movie"
     },
     {
       "id": "movie-5",
       "description": "A placeholder image for a movie poster for Asuran",
-      "imageUrl": "https://images.unsplash.com/photo-1595437199797-3c35b1397861?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmYXJtZXIlMjBpbiUyMGZpZWxkfGVufDB8fHx8MTc2NjA0MDQwMHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "farmer field"
+      "imageUrl": "https://gumlet.vikatan.com/vikatan/2019-05/691e07f6-594a-43b5-bcf5-398a3ec451d6/maxresdefault.jpg?w=1200&auto=format%2Ccompress&ogImage=true",
+      "imageHint": "action drama"
     },
     {
       "id": "movie-6",
       "description": "A placeholder image for a movie poster for Ratsasan",
-      "imageUrl": "https://images.unsplash.com/photo-1599747943759-41b185672535?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxkZW1vbiUyMG1hc2t8ZW58MHx8fHwxNzY2MDQwNTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "demon mask"
+      "imageUrl": "https://d388d59m61mm0v.cloudfront.net/optimized/content/banner/common/movie/images/1920x1080_Ratsasan_82686_bf8acb5b-94ed-4648-a049-1c76afaea4ff.jpg",
+      "imageHint": "crime thriller"
     },
     {
       "id": "backdrop-1",
