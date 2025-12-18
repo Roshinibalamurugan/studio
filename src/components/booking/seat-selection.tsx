@@ -8,6 +8,18 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { Ticket } from 'lucide-react';
 import { bookTickets } from '@/lib/actions';
+import { useUser } from '@/firebase';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 type SeatSelectionProps = {
   showtime: Showtime;
@@ -43,6 +55,7 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
+  const { user, isUserLoading } = useUser();
 
   const handleSeatSelect = (seat: Seat) => {
     setSelectedSeats(prev => {
@@ -58,6 +71,15 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
   const totalPrice = (selectedSeats.length * showtime.price).toFixed(2);
 
   const handleBooking = async () => {
+    if (!user) {
+        toast({
+            title: "Authentication Required",
+            description: "Please log in to book tickets.",
+            variant: "destructive",
+        });
+        router.push('/login');
+        return;
+    }
     if (selectedSeats.length === 0) {
       toast({
         title: "No seats selected",
@@ -70,7 +92,7 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
     
     try {
       const seatIds = selectedSeats.map(s => s.id);
-      const result = await bookTickets(showtime.id, seatIds);
+      const result = await bookTickets(showtime.id, seatIds, user.uid);
       
       if (result.success && result.bookingId) {
         toast({
@@ -89,9 +111,34 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
             variant: "destructive",
         });
         setIsSubmitting(false);
+        // We should re-fetch showtime data to get latest seat availability
         router.refresh();
     }
   };
+
+  const LoginPromptDialog = () => (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button size="lg" className="w-full" disabled={isSubmitting || selectedSeats.length === 0}>
+          {isSubmitting ? 'Processing...' : 'Confirm & Pay'}
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Log in to continue</AlertDialogTitle>
+          <AlertDialogDescription>
+            You need to be logged in to book tickets. Please log in or create an account to proceed with your booking.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction asChild>
+            <Link href="/login">Log In</Link>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
 
   return (
     <div className="grid lg:grid-cols-[1fr,320px] gap-8">
@@ -156,14 +203,21 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
                 )}
             </CardContent>
             <CardFooter>
-                <Button 
-                  size="lg" 
-                  className="w-full"
-                  onClick={handleBooking}
-                  disabled={isSubmitting || selectedSeats.length === 0}
-                >
-                  {isSubmitting ? 'Processing...' : 'Confirm & Pay'}
-                </Button>
+                 { isUserLoading ? 
+                    <Button size="lg" className="w-full" disabled><div className="h-5 w-20 bg-muted-foreground/50 rounded-md animate-pulse" /></Button> :
+                   user ? (
+                    <Button 
+                      size="lg" 
+                      className="w-full"
+                      onClick={handleBooking}
+                      disabled={isSubmitting || selectedSeats.length === 0}
+                    >
+                      {isSubmitting ? 'Processing...' : 'Confirm & Pay'}
+                    </Button>
+                   ) : (
+                    <LoginPromptDialog />
+                   )
+                 }
             </CardFooter>
         </Card>
       </div>

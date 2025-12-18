@@ -3,11 +3,17 @@
 import { revalidatePath } from 'next/cache';
 import { showtimes } from './data';
 import type { Booking } from '@/types';
+import { getAuth } from 'firebase/auth';
+import { initializeFirebase } from '@/firebase';
 
 let bookings: Booking[] = [];
 
-export async function bookTickets(showtimeId: string, seatIds: string[]): Promise<{ success: boolean; message?: string; bookingId?: string }> {
+export async function bookTickets(showtimeId: string, seatIds: string[], userId: string): Promise<{ success: boolean; message?: string; bookingId?: string }> {
     
+    if (!userId) {
+        return { success: false, message: 'You must be logged in to book tickets.' };
+    }
+
     const showtimeIndex = showtimes.findIndex(st => st.id === showtimeId);
     if (showtimeIndex === -1) {
         return { success: false, message: 'Showtime not found.' };
@@ -40,7 +46,7 @@ export async function bookTickets(showtimeId: string, seatIds: string[]): Promis
 
     const newBooking: Booking = {
         id: `B${Date.now()}`,
-        userId: 'user123',
+        userId: userId,
         showtimeId: showtimeId,
         seats: seatIds.map(id => ({ row: id.charAt(0), number: parseInt(id.substring(1)) })),
         totalPrice: seatIds.length * showtime.price,
@@ -54,5 +60,6 @@ export async function bookTickets(showtimeId: string, seatIds: string[]): Promis
 }
 
 export async function getBookingById(bookingId: string) {
+    // In a real app, you'd also verify the user has permission to see this booking
     return bookings.find(b => b.id === bookingId);
 }
