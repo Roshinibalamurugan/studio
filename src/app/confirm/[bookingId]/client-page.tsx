@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { notFound, useRouter } from 'next/navigation';
 import type { Booking } from '@/types';
 import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
@@ -23,29 +23,33 @@ export default function ConfirmationClientPage({ bookingId }: ConfirmationPagePr
   const router = useRouter();
 
   const bookingRef = useMemoFirebase(() => {
-    if (!user || !firestore) return null;
+    // Wait until we have a user and firestore instance
+    if (isUserLoading || !user || !firestore) {
+      return null;
+    }
     return doc(firestore, 'users', user.uid, 'bookings', bookingId);
-  }, [user, firestore, bookingId]);
+  }, [user, isUserLoading, firestore, bookingId]);
 
   const { data: booking, isLoading: isBookingLoading, error } = useDoc<Booking>(bookingRef);
 
   useEffect(() => {
+    // Redirect to login if user is not loaded and not authenticated
     if (!isUserLoading && !user) {
       router.replace('/login');
     }
   }, [user, isUserLoading, router]);
 
-  // If there's a Firestore error or the booking is explicitly null after loading, handle not found.
+  // If the hook returns an error or the document is null after loading, show not found.
   useEffect(() => {
-    if (!isBookingLoading && (error || !booking)) {
+    if (!isBookingLoading && bookingRef && (error || !booking)) {
         notFound();
     }
-  }, [isBookingLoading, error, booking])
+  }, [isBookingLoading, error, booking, bookingRef]);
 
 
-  const isLoading = isUserLoading || isBookingLoading;
+  const isLoading = isUserLoading || isBookingLoading || !booking;
 
-  if (isLoading || !booking) {
+  if (isLoading) {
     return (
       <div className="container py-12 text-center">
         <Loader2 className="w-8 h-8 animate-spin mx-auto text-primary" />
