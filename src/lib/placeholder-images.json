@@ -1,3 +1,58 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "movie-1",
+      "description": "A placeholder image for a movie poster",
+      "imageUrl": "https://images.unsplash.com/photo-1575919220112-0d5a2dc6a4b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhY3Rpb24lMjBtb3ZpZXxlbnwwfHx8fDE3NjU5NDQ1NDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "action movie"
+    },
+    {
+      "id": "movie-2",
+      "description": "A placeholder image for a movie poster",
+      "imageUrl": "https://images.unsplash.com/photo-1513704519535-f5c81aa78d0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzY2ktZmklMjBtb3ZpZXxlbnwwfHx8fDE3NjU5NDQ1Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sci-fi movie"
+    },
+    {
+      "id": "movie-3",
+      "description": "A placeholder image for a movie poster",
+      "imageUrl": "https://images.unsplash.com/photo-1758525862263-af89b090fb56?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjb21lZHklMjBtb3ZpZXxlbnwwfHx8fDE3NjU5NzY3NjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "comedy movie"
+    },
+    {
+      "id": "movie-4",
+      "description": "A placeholder image for a movie poster",
+      "imageUrl": "https://images.unsplash.com/photo-1713033766707-2fac55b1a6c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxkcmFtYSUyMG1vdmllfGVufDB8fHx8MTc2NjAzOTg4Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "drama movie"
+    },
+    {
+      "id": "movie-5",
+      "description": "A placeholder image for a movie poster",
+      "imageUrl": "https://images.unsplash.com/photo-1765904999396-907f53d80084?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhbmltYXRlZCUyMG1vdmllfGVufDB8fHx8MTc2NjAzOTg4Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "animated movie"
+    },
+    {
+      "id": "movie-6",
+      "description": "A placeholder image for a movie poster",
+      "imageUrl": "https://images.unsplash.com/photo-1481018085669-2bc6e4f00eed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxob3Jyb3IlMjBtb3ZpZXxlbnwwfHx8fDE3NjU5NzM4NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "horror movie"
+    },
+    {
+      "id": "backdrop-1",
+      "description": "A placeholder image for a movie backdrop",
+      "imageUrl": "https://images.unsplash.com/photo-1628015893937-9313b7a7bdee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjaW5lbWF0aWMlMjBsYW5kc2NhcGV8ZW58MHx8fHwxNzY1OTIyNDYyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cinematic landscape"
+    },
+    {
+      "id": "backdrop-2",
+      "description": "A placeholder image for a movie backdrop",
+      "imageUrl": "https://images.unsplash.com/photo-1656542198209-4758a1afc42f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzcGFjZSUyMG5lYnVsYXxlbnwwfHx8fDE3NjU5ODQxMDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "space nebula"
+    },
+    {
+      "id": "backdrop-3",
+      "description": "A placeholder image for a movie backdrop",
+      "imageUrl": "https://images.unsplash.com/photo-1502905704466-2690947baeee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjaXR5JTIwc2t5bGluZXxlbnwwfHx8fDE3NjYwMjUxODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city skyline"
+    }
+  ]
 }
