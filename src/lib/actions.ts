@@ -63,3 +63,7 @@ export async function getBookingById(bookingId: string) {
     // In a real app, you'd also verify the user has permission to see this booking
     return bookings.find(b => b.id === bookingId);
 }
+
+export async function getBookingsByUserId(userId: string) {
+    return bookings.filter(b => b.userId === userId).sort((a, b) => new Date(b.bookingTime).getTime() - new Date(a.bookingTime).getTime());
+}
