@@ -37,6 +37,66 @@
       "imageHint": "crime thriller"
     },
     {
+      "id": "movie-7",
+      "description": "A placeholder image for a movie poster for Mankatha",
+      "imageUrl": "https://images.unsplash.com/photo-1653862493502-ce2a89f1ea49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjcmltZSUyMGFjdGlvbnxlbnwwfHx8fDE3NjYwNDA5NjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "crime action"
+    },
+    {
+      "id": "movie-8",
+      "description": "A placeholder image for a movie poster for Thuppakki",
+      "imageUrl": "https://images.unsplash.com/photo-1765513275789-3fa26f20badc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhY3Rpb24lMjB0aHJpbGxlcnxlbnwwfHx8fDE3NjYwMTk5MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "action thriller"
+    },
+    {
+      "id": "movie-9",
+      "description": "A placeholder image for a movie poster for Kaththi",
+      "imageUrl": "https://images.unsplash.com/photo-1514823898861-b1babeb0351d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhY3Rpb24lMjBkcmFtYXxlbnwwfHx8fDE3NjYwNDA5NjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "action drama"
+    },
+    {
+      "id": "movie-10",
+      "description": "A placeholder image for a movie poster for Master",
+      "imageUrl": "https://images.unsplash.com/photo-1760800185553-120f11121066?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhY3Rpb24lMjB0aHJpbGxlcnxlbnwwfHx8fDE3NjYwMTk5MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "action thriller"
+    },
+    {
+      "id": "movie-11",
+      "description": "A placeholder image for a movie poster for Mersal",
+      "imageUrl": "https://images.unsplash.com/photo-1765510296004-614b6cc204da?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhY3Rpb24lMjB0aHJpbGxlcnxlbnwwfHx8fDE3NjYwMTk5MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "action thriller"
+    },
+    {
+      "id": "movie-12",
+      "description": "A placeholder image for a movie poster for Bigil",
+      "imageUrl": "https://images.unsplash.com/photo-1758354973067-9c8811edcfd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c3BvcnRzJTIwZHJhbWF8ZW58MHx8fHwxNzY1OTg1Njc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sports drama"
+    },
+    {
+      "id": "movie-13",
+      "description": "A placeholder image for a movie poster for Enthiran",
+      "imageUrl": "https://images.unsplash.com/photo-1628026552437-59305f353694?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzY2klMjBmaXxlbnwwfHx8fDE3NjU5ODkwOTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sci fi"
+    },
+    {
+      "id": "movie-14",
+      "description": "A placeholder image for a movie poster for Sivaji: The Boss",
+      "imageUrl": "https://images.unsplash.com/photo-1645808651017-c5e3018553c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhY3Rpb24lMjBtb3ZpZXxlbnwwfHx8fDE3NjU5NDQ1NDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "action movie"
+    },
+    {
+      "id": "movie-15",
+      "description": "A placeholder image for a movie poster for Anniyan",
+      "imageUrl": "https://images.unsplash.com/photo-1749936351329-2e6ffff3696f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwc3ljaG9sb2dpY2FsJTIwdGhyaWxsZXJ8ZW58MHx8fHwxNzY2MDQwOTYyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "psychological thriller"
+    },
+    {
+      "id": "movie-16",
+      "description": "A placeholder image for a movie poster for Vada Chennai",
+      "imageUrl": "https://images.unsplash.com/photo-1765513275789-3fa26f20badc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmltZSUyMGRyYW1hfGVufDB8fHx8MTc2NTk5MTg5OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "crime drama"
+    },
+    {
       "id": "backdrop-1",
       "description": "A placeholder image for a movie backdrop",
       "imageUrl": "https://images.unsplash.com/photo-1535083783855-72ae7b2438e4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtb29uJTIwbmlnaHR8ZW58MHx8fHwxNzY2MDQwNjAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
@@ -53,6 +113,24 @@
       "description": "A placeholder image for a movie backdrop",
       "imageUrl": "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaXR5JTIwYnklMjBuaWdodHxlbnwwfHx8fDE3NjYwNDA4MDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "city night"
+    },
+    {
+      "id": "backdrop-4",
+      "description": "A placeholder image for a movie backdrop",
+      "imageUrl": "https://images.unsplash.com/photo-1574617935024-dc0b10bd3cee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx1cmJhbiUyMGxhbmRzY2FwZXxlbnwwfHx8fDE3NjYwMjI4NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "urban landscape"
+    },
+    {
+      "id": "backdrop-5",
+      "description": "A placeholder image for a movie backdrop",
+      "imageUrl": "https://images.unsplash.com/photo-1549317336-206569e8475c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxhYnN0cmFjdCUyMGxpZ2h0c3xlbnwwfHx8fDE3NjYwMDMyMDN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract lights"
+    },
+    {
+      "id": "backdrop-6",
+      "description": "A placeholder image for a movie backdrop",
+      "imageUrl": "https://images.unsplash.com/photo-1588632205848-5789a592134b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZHJhbWF0aWMlMjBza3l8ZW58MHx8fHwxNzY2MDQwOTYzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dramatic sky"
     }
   ]
 }
