@@ -42,7 +42,7 @@ export default function MoviePage({ params }: MoviePageProps) {
                 src={movie.posterUrl}
                 alt={`Poster for ${movie.title}`}
                 fill
-                className="object-cover"
+                className="object-contain"
                 sizes="(max-width: 768px) 80vw, 30vw"
                 data-ai-hint="movie poster"
               />

@@ -19,7 +19,7 @@ export function MovieCard({ movie }: MovieCardProps) {
               src={movie.posterUrl}
               alt={`Poster for ${movie.title}`}
               fill
-              className="object-cover"
+              className="object-contain"
               sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1280px) 25vw, 20vw"
               data-ai-hint="movie poster"
             />
