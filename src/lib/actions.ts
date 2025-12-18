@@ -7,15 +7,14 @@ import type { Booking } from '@/types';
 import { initializeFirebase } from '@/firebase';
 import { collection, doc, getDoc, getDocs, setDoc, query, where, orderBy } from 'firebase/firestore';
 
-const { firestore } = initializeFirebase();
-const bookingsCollection = collection(firestore, 'bookings');
-
 
 export async function bookTickets(showtimeId: string, seatIds: string[], userId: string): Promise<{ success: boolean; message?: string; bookingId?: string }> {
     
     if (!userId) {
         return { success: false, message: 'You must be logged in to book tickets.' };
     }
+
+    const { firestore } = initializeFirebase();
 
     const showtimeIndex = showtimes.findIndex(st => st.id === showtimeId);
     if (showtimeIndex === -1) {
@@ -75,6 +74,7 @@ export async function bookTickets(showtimeId: string, seatIds: string[], userId:
 
 export async function getBookingById(bookingId: string, userId: string) {
     if (!userId) return null;
+    const { firestore } = initializeFirebase();
     const docRef = doc(firestore, "users", userId, "bookings", bookingId);
     const docSnap = await getDoc(docRef);
 
@@ -91,6 +91,7 @@ export async function getBookingById(bookingId: string, userId: string) {
 export async function getBookingsByUserId(userId: string) {
     if (!userId) return [];
     
+    const { firestore } = initializeFirebase();
     const userBookingsCol = collection(firestore, 'users', userId, 'bookings');
     const q = query(userBookingsCol, orderBy('bookingTime', 'desc'));
     
