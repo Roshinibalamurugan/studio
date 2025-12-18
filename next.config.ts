@@ -52,6 +52,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "d388d59m61mm0v.cloudfront.net",
       },
+      {
+        protocol: "https",
+        hostname: "th.bing.com",
+      },
     ],
   },
 };
