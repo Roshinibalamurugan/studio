@@ -1,3 +1,4 @@
+
 import { notFound } from 'next/navigation';
 import { getShowtimeById, getMovieById, getTheaterById } from '@/lib/data';
 import { Clock, Film, MapPin, Calendar } from 'lucide-react';
