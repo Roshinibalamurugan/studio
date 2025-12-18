@@ -56,6 +56,38 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "th.bing.com",
       },
+      {
+        protocol: "https",
+        hostname: "tse3.mm.bing.net",
+      },
+      {
+        protocol: "https",
+        hostname: "wallpapercave.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.wallpapersden.com",
+      },
+      {
+        protocol: "https",
+        hostname: "tse1.mm.bing.net",
+      },
+      {
+        protocol: "https",
+        hostname: "m.media-amazon.com",
+      },
+      {
+        protocol: "https",
+        hostname: "st1.latestly.com",
+      },
+      {
+        protocol: "https",
+        hostname: "varnam.my",
+      },
+      {
+        protocol: "https",
+        hostname: "tse4.mm.bing.net",
+      },
     ],
   },
 };
