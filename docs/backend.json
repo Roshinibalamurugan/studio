@@ -1,0 +1,283 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user in the CineBook application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the User entity."
+        },
+        "username": {
+          "type": "string",
+          "description": "The username of the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the user.",
+          "format": "email"
+        },
+        "registrationDate": {
+          "type": "string",
+          "description": "The date and time the user registered.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "username",
+        "email",
+        "registrationDate"
+      ]
+    },
+    "Movie": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Movie",
+      "type": "object",
+      "description": "Represents a movie in the CineBook application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Movie entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the movie."
+        },
+        "genre": {
+          "type": "string",
+          "description": "The genre of the movie."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the movie."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL for the movie poster image.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "genre",
+        "description",
+        "imageUrl"
+      ]
+    },
+    "Theater": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Theater",
+      "type": "object",
+      "description": "Represents a theater where movies are shown.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Theater entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the theater."
+        },
+        "location": {
+          "type": "string",
+          "description": "The location of the theater."
+        },
+        "amenities": {
+          "type": "array",
+          "description": "A list of ammenities offered in the Theater",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "location"
+      ]
+    },
+    "Showtime": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Showtime",
+      "type": "object",
+      "description": "Represents a specific showtime for a movie at a theater.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Showtime entity."
+        },
+        "movieId": {
+          "type": "string",
+          "description": "Reference to Movie. (Relationship: Movie 1:N Showtime)"
+        },
+        "theaterId": {
+          "type": "string",
+          "description": "Reference to Theater. (Relationship: Theater 1:N Showtime)"
+        },
+        "startTime": {
+          "type": "string",
+          "description": "The start time of the show.",
+          "format": "date-time"
+        },
+        "availableSeats": {
+          "type": "number",
+          "description": "The total number of seats available"
+        }
+      },
+      "required": [
+        "id",
+        "movieId",
+        "theaterId",
+        "startTime"
+      ]
+    },
+    "Booking": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Booking",
+      "type": "object",
+      "description": "Represents a booking made by a user for a showtime.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Booking entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Booking)"
+        },
+        "showtimeId": {
+          "type": "string",
+          "description": "Reference to Showtime. (Relationship: Showtime 1:N Booking)"
+        },
+        "bookingTime": {
+          "type": "string",
+          "description": "The date and time the booking was made.",
+          "format": "date-time"
+        },
+        "numberOfSeats": {
+          "type": "number",
+          "description": "The number of seats booked."
+        },
+        "seatNumbers": {
+          "type": "array",
+          "description": "The seat numbers booked.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "paymentReference": {
+          "type": "string",
+          "description": "The reference id from the payment gateway."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "showtimeId",
+        "bookingTime",
+        "numberOfSeats",
+        "seatNumbers",
+        "paymentReference"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profiles. Bookings are stored as subcollections of this collection, thus the path is the root for all personal data. Parameter 'userId' is the Firebase auth UID. Includes denormalized 'userId' for authorization independence.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user, corresponding to the Firebase Auth UID."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/movies/{movieId}",
+        "definition": {
+          "entityName": "Movie",
+          "schema": {
+            "$ref": "#/backend/entities/Movie"
+          },
+          "description": "Stores movie information.",
+          "params": [
+            {
+              "name": "movieId",
+              "description": "The unique identifier for the movie."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/theaters/{theaterId}",
+        "definition": {
+          "entityName": "Theater",
+          "schema": {
+            "$ref": "#/backend/entities/Theater"
+          },
+          "description": "Stores theater information.",
+          "params": [
+            {
+              "name": "theaterId",
+              "description": "The unique identifier for the theater."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/showtimes/{showtimeId}",
+        "definition": {
+          "entityName": "Showtime",
+          "schema": {
+            "$ref": "#/backend/entities/Showtime"
+          },
+          "description": "Stores showtime information. Each showtime belongs to a specific movie and theater.",
+          "params": [
+            {
+              "name": "showtimeId",
+              "description": "The unique identifier for the showtime."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/bookings/{bookingId}",
+        "definition": {
+          "entityName": "Booking",
+          "schema": {
+            "$ref": "#/backend/entities/Booking"
+          },
+          "description": "Stores booking information for a user. The 'userId' parameter corresponds to the authenticated user's UID. Includes denormalized 'userId' for authorization independence.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user, corresponding to the Firebase Auth UID."
+            },
+            {
+              "name": "bookingId",
+              "description": "The unique identifier for the booking."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure is designed to support the CineBook application's core features, focusing on secure and efficient data access. The structure adheres to the principles of Authorization Independence, Structural Segregation, and Access Modeling to ensure robust security rules and scalability.\n\n*   **Authorization Independence:** User-specific data (bookings) are stored under `/users/{userId}`, ensuring that access control can be enforced based solely on the `request.auth.uid` without needing to `get()` parent documents. This also enhances the atomicity of operations.\n\n*   **Structural Segregation:** Each top-level collection (`movies`, `theaters`) contains documents with homogeneous security requirements (read access to all authenticated users for movies and theaters). User-specific bookings are stored in a dedicated subcollection under each user.\n\n*   **Access Modeling:**\n    *   Private data is owned via Path-Based ownership (bookings under `/users/{userId}`).\n\n    *   For QAPs (Queries across Partitions) to list all Movies and Theaters, the collections are designed for public read access for all authenticated users. Security rules can validate data integrity during write operations.\n\nThe data model anticipates the use of Firebase Authentication and Firestore security rules to protect data and control user access.\n"
+  }
+}
