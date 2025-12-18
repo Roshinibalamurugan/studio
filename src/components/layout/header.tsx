@@ -16,9 +16,11 @@ export function Header() {
         <nav className="flex items-center space-x-6 text-sm font-medium">
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-4">
-          <Button variant="ghost">
-            <User className="h-5 w-5 mr-2" />
-            Log In
+          <Button asChild variant="ghost">
+            <Link href="/login">
+              <User className="h-5 w-5 mr-2" />
+              Log In
+            </Link>
           </Button>
         </div>
       </div>
