@@ -75,7 +75,7 @@ export default function ConfirmationClientPage({ bookingId }: ConfirmationPagePr
                 <CheckCircle className="w-12 h-12 text-green-600" />
             </div>
             <CardTitle className="text-3xl font-bold mt-4 font-headline">Booking Confirmed!</CardTitle>
-            <CardDescription>Your tickets are booked. Thank you for using CineBook.</CardDescription>
+            <CardDescription>Your seats have been booked. Thank you for using CineBook.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
             <div className="border rounded-lg p-4 space-y-4 bg-secondary/50">
