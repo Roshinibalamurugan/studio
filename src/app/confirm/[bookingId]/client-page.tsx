@@ -39,13 +39,11 @@ export default function ConfirmationClientPage({ bookingId }: ConfirmationPagePr
     }
   }, [user, isUserLoading, router]);
 
-  // If the hook returns an error or the document is null after loading, show not found.
-  useEffect(() => {
-    if (!isBookingLoading && bookingRef && (error || !booking)) {
-        notFound();
-    }
-  }, [isBookingLoading, error, booking, bookingRef]);
-
+  // If there's an error, or if loading is finished and there's no booking and no user loading, show not found.
+  // This prevents showing "not found" while the user or booking is still in the process of loading.
+  if (error || (!isUserLoading && !isBookingLoading && bookingRef && !booking)) {
+    notFound();
+  }
 
   const isLoading = isUserLoading || isBookingLoading || !booking || !bookingRef;
 
