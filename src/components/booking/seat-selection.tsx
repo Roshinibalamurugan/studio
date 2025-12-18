@@ -134,7 +134,7 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button size="lg" className="w-full" disabled={isSubmitting || selectedSeats.length === 0}>
-          {isSubmitting ? 'Processing...' : 'Confirm & Pay'}
+          {isSubmitting ? 'Processing...' : `Pay $${totalPrice}`}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -226,7 +226,7 @@ export default function SeatSelection({ showtime }: SeatSelectionProps) {
                       onClick={handleBooking}
                       disabled={isSubmitting || selectedSeats.length === 0}
                     >
-                      {isSubmitting ? 'Processing...' : 'Confirm & Pay'}
+                      {isSubmitting ? 'Processing...' : `Pay $${totalPrice}`}
                     </Button>
                    ) : (
                     <LoginPromptDialog />

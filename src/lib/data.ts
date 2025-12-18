@@ -228,6 +228,18 @@ export const theaters: Theater[] = [
 ];
 
 export let showtimes: Showtime[] = [
+    // Today's showtimes
+    { id: 'st1_today', movieId: '1', theaterId: 't1', time: new Date().setHours(19, 0, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 12.50 },
+    { id: 'st2_today', movieId: '1', theaterId: 't1', time: new Date().setHours(22, 0, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 12.50 },
+    { id: 'st3_today', movieId: '1', theaterId: 't2', time: new Date().setHours(20, 0, 0, 0).valueOf().toString(), seats: generateSeats(10, 15), price: 15.00 },
+    { id: 'st4_today', movieId: '2', theaterId: 't2', time: new Date().setHours(18, 30, 0, 0).valueOf().toString(), seats: generateSeats(10, 15), price: 11.00 },
+    { id: 'st5_today', movieId: '2', theaterId: 't3', time: new Date().setHours(21, 0, 0, 0).valueOf().toString(), seats: generateSeats(5, 20), price: 10.00 },
+    { id: 'st6_today', movieId: '3', theaterId: 't1', time: new Date().setHours(17, 0, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 12.50 },
+    { id: 'st7_today', movieId: '3', theaterId: 't1', time: new Date().setHours(21, 30, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 12.50 },
+    { id: 'st8_today', movieId: '4', theaterId: 't2', time: new Date().setHours(23, 0, 0, 0).valueOf().toString(), seats: generateSeats(10, 15), price: 14.00 },
+    { id: 'st9_today', movieId: '5', theaterId: 't3', time: new Date().setHours(15, 0, 0, 0).valueOf().toString(), seats: generateSeats(5, 20), price: 10.50 },
+    { id: 'st10_today', movieId: '6', theaterId: 't1', time: new Date().setHours(14, 0, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 11.50 },
+    // Tomorrow's showtimes
     { id: 'st1', movieId: '1', theaterId: 't1', time: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(19, 0, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 12.50 },
     { id: 'st2', movieId: '1', theaterId: 't1', time: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(22, 0, 0, 0).valueOf().toString(), seats: generateSeats(8, 12), price: 12.50 },
     { id: 'st3', movieId: '1', theaterId: 't2', time: new Date(new Date().setDate(new Date().getDate() + 1)).setHours(20, 0, 0, 0).valueOf().toString(), seats: generateSeats(10, 15), price: 15.00 },
