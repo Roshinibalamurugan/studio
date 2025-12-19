@@ -82,7 +82,9 @@ export function BookingsClientPage() {
       ) : (
         <div className="space-y-6">
           {enrichedBookings.map((booking) => {
-            const showtimeDate = booking.showtime ? new Date(parseInt(booking.showtime.time)) : null;
+            const timeValue = booking.showtime?.time;
+            const isValidTime = timeValue && !isNaN(parseInt(timeValue, 10));
+            const showtimeDate = isValidTime ? new Date(parseInt(timeValue as string, 10)) : null;
             return (
             <Card key={booking.id} className="overflow-hidden">
                 <div className="grid md:grid-cols-[120px_1fr] lg:grid-cols-[150px_1fr]">
