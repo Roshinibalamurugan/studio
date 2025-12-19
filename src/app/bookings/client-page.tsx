@@ -7,7 +7,7 @@ import { getShowtimeById, getMovieById, getTheaterById } from '@/lib/data';
 import type { Booking, Movie, Theater, Showtime } from '@/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Film, MapPin, Calendar, Clock, Ticket, Loader2 } from 'lucide-react';
-import { format, parse } from 'date-fns';
+import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -82,7 +82,7 @@ export function BookingsClientPage() {
       ) : (
         <div className="space-y-6">
           {enrichedBookings.map((booking) => {
-            const showtimeDate = booking.showtime ? parse(booking.showtime.time, 'HH:mm', new Date()) : null;
+            const showtimeDate = booking.showtime ? new Date(parseInt(booking.showtime.time)) : null;
             return (
             <Card key={booking.id} className="overflow-hidden">
                 <div className="grid md:grid-cols-[120px_1fr] lg:grid-cols-[150px_1fr]">
