@@ -1,5 +1,5 @@
 /**
- * This ruleset enforces a strict security model for the CineBook application.
+ * This ruleset enforces a strict security model for the BookMyShow application.
  *
  * Core Philosophy:
  * The security model is built on two primary principles: strict user ownership for private
@@ -141,3 +141,5 @@ service cloud.firestore {
     }
   }
 }
+
+    

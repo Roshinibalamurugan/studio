@@ -6,8 +6,8 @@ import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 
 export const metadata: Metadata = {
-  title: 'CineBook - Your Ultimate Movie Booking Experience',
-  description: 'Search movies, select theaters, choose seats, and book tickets seamlessly with CineBook.',
+  title: 'BookMyShow - Your Ultimate Movie Booking Experience',
+  description: 'Search movies, select theaters, choose seats, and book tickets seamlessly with BookMyShow.',
 };
 
 export default function RootLayout({
@@ -33,3 +33,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+    

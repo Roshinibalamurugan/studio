@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { CineBookLogo } from '@/components/icons';
+import { BookMyShowLogo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { User, LogOut, Ticket } from 'lucide-react';
 import { useAuth, useUser } from '@/firebase';
@@ -34,9 +34,9 @@ export function Header() {
     <header className="bg-background/95 sticky top-0 z-50 w-full border-b backdrop-blur-sm">
       <div className="container flex h-16 items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <CineBookLogo className="h-8 w-8 text-primary" />
+          <BookMyShowLogo className="h-8 w-8 text-primary" />
           <span className="font-bold text-lg hidden sm:inline-block font-headline">
-            CineBook
+            BookMyShow
           </span>
         </Link>
         <nav className="flex items-center space-x-6 text-sm font-medium">
@@ -90,3 +90,5 @@ export function Header() {
     </header>
   );
 }
+
+    

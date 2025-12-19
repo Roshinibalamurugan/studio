@@ -19,7 +19,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { CineBookLogo } from '@/components/icons';
+import { BookMyShowLogo } from '@/components/icons';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { FirebaseError } from 'firebase/app';
@@ -107,7 +107,7 @@ export function AuthForm({ mode }: AuthFormProps) {
   const description =
     mode === 'login'
       ? 'Enter your email below to log in to your account'
-      : 'Enter your details to create your CineBook account';
+      : 'Enter your details to create your BookMyShow account';
   const buttonText = mode === 'login' ? 'Log in' : 'Sign up';
   const linkText = mode === 'login' ? "Don't have an account?" : 'Already have an account?';
   const linkHref = mode === 'login' ? '/signup' : '/login';
@@ -117,7 +117,7 @@ export function AuthForm({ mode }: AuthFormProps) {
       <Card className="mx-auto max-w-sm w-full">
         <CardHeader className="text-center">
           <div className="flex justify-center items-center mb-2">
-            <CineBookLogo className="h-10 w-10 text-primary" />
+            <BookMyShowLogo className="h-10 w-10 text-primary" />
           </div>
           <CardTitle className="text-2xl font-bold font-headline">{title}</CardTitle>
           <CardDescription>{description}</CardDescription>
@@ -189,3 +189,5 @@ export function AuthForm({ mode }: AuthFormProps) {
     </div>
   );
 }
+
+    

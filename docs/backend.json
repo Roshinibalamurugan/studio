@@ -4,7 +4,7 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "User",
       "type": "object",
-      "description": "Represents a user in the CineBook application.",
+      "description": "Represents a user in the BookMyShow application.",
       "properties": {
         "id": {
           "type": "string",
@@ -36,7 +36,7 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Movie",
       "type": "object",
-      "description": "Represents a movie in the CineBook application.",
+      "description": "Represents a movie in the BookMyShow application.",
       "properties": {
         "id": {
           "type": "string",
@@ -278,6 +278,7 @@
         }
       }
     ],
-    "reasoning": "The Firestore data structure is designed to support the CineBook application's core features, focusing on secure and efficient data access. The structure adheres to the principles of Authorization Independence, Structural Segregation, and Access Modeling to ensure robust security rules and scalability.\n\n*   **Authorization Independence:** User-specific data (bookings) are stored under `/users/{userId}`, ensuring that access control can be enforced based solely on the `request.auth.uid` without needing to `get()` parent documents. This also enhances the atomicity of operations.\n\n*   **Structural Segregation:** Each top-level collection (`movies`, `theaters`) contains documents with homogeneous security requirements (read access to all authenticated users for movies and theaters). User-specific bookings are stored in a dedicated subcollection under each user.\n\n*   **Access Modeling:**\n    *   Private data is owned via Path-Based ownership (bookings under `/users/{userId}`).\n\n    *   For QAPs (Queries across Partitions) to list all Movies and Theaters, the collections are designed for public read access for all authenticated users. Security rules can validate data integrity during write operations.\n\nThe data model anticipates the use of Firebase Authentication and Firestore security rules to protect data and control user access.\n"
+    "reasoning": "The Firestore data structure is designed to support the BookMyShow application's core features, focusing on secure and efficient data access. The structure adheres to the principles of Authorization Independence, Structural Segregation, and Access Modeling to ensure robust security rules and scalability.\n\n*   **Authorization Independence:** User-specific data (bookings) are stored under `/users/{userId}`, ensuring that access control can be enforced based solely on the `request.auth.uid` without needing to `get()` parent documents. This also enhances the atomicity of operations.\n\n*   **Structural Segregation:** Each top-level collection (`movies`, `theaters`) contains documents with homogeneous security requirements (read access to all authenticated users for movies and theaters). User-specific bookings are stored in a dedicated subcollection under each user.\n\n*   **Access Modeling:**\n    *   Private data is owned via Path-Based ownership (bookings under `/users/{userId}`).\n\n    *   For QAPs (Queries across Partitions) to list all Movies and Theaters, the collections are designed for public read access for all authenticated users. Security rules can validate data integrity during write operations.\n\nThe data model anticipates the use of Firebase Authentication and Firestore security rules to protect data and control user access.\n"
   }
 }
+    
