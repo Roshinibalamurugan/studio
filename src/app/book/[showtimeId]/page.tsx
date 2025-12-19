@@ -2,7 +2,7 @@
 import { notFound } from 'next/navigation';
 import { getShowtimeById, getMovieById, getTheaterById } from '@/lib/data';
 import { Clock, Film, MapPin, Calendar } from 'lucide-react';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 import SeatSelection from '@/components/booking/seat-selection';
 import type { Seat } from '@/types';
 
@@ -49,6 +49,8 @@ export default async function BookingPage({ params }: BookingPageProps) {
     notFound();
   }
 
+  const showtimeDate = parse(showtime.time, 'HH:mm', new Date());
+
   return (
     <div className="container py-8">
         <div className="mb-6">
@@ -64,11 +66,11 @@ export default async function BookingPage({ params }: BookingPageProps) {
                 </div>
                  <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
-                    <span>{format(new Date(parseInt(showtime.time)), 'PPP')}</span>
+                    <span>{format(showtimeDate, 'PPP')}</span>
                 </div>
                  <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4" />
-                    <span>{format(new Date(parseInt(showtime.time)), 'p')}</span>
+                    <span>{format(showtimeDate, 'p')}</span>
                 </div>
             </div>
         </div>

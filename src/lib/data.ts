@@ -1,5 +1,6 @@
 import type { Movie, Showtime, Theater, Seat } from '@/types';
 import { PlaceHolderImages } from './placeholder-images';
+import { parse } from 'date-fns';
 
 const getImage = (id: string) => PlaceHolderImages.find(img => img.id === id)?.imageUrl || '';
 
@@ -267,6 +268,15 @@ export let showtimes: Showtime[] = [
     { id: 'st16', movieId: '13', theaterId: 't1', time: '22:30', seats: [], price: 170 },
     { id: 'st17', movieId: '14', theaterId: 't2', time: '17:30', seats: [], price: 130 },
     { id: 'st18', movieId: '15', theaterId: 't3', time: '21:30', seats: [], price: 150 },
+    { id: 'st19', movieId: '7', theaterId: 't1', time: '10:00', seats: [], price: 150 },
+    { id: 'st20', movieId: '8', theaterId: 't2', time: '11:00', seats: [], price: 160 },
+    { id: 'st21', movieId: '9', theaterId: 't3', time: '12:00', seats: [], price: 170 },
+    { id: 'st22', movieId: '10', theaterId: 't1', time: '13:00', seats: [], price: 180 },
+    { id: 'st23', movieId: '11', theaterId: 't2', time: '14:00', seats: [], price: 190 },
+    { id: 'st24', movieId: '12', theaterId: 't3', time: '15:00', seats: [], price: 200 },
+    { id: 'st25', movieId: '13', theaterId: 't1', time: '16:00', seats: [], price: 150 },
+    { id: 'st26', movieId: '14', theaterId: 't2', time: '17:00', seats: [], price: 160 },
+    { id: 'st27', movieId: '15', theaterId: 't3', time: '18:00', seats: [], price: 170 },
 ];
 
 export const getMovieById = (id: string) => movies.find(m => m.id === id);
@@ -275,28 +285,7 @@ export const getShowtimeById = (id: string) => {
     const showtime = showtimes.find(st => st.id === id);
     if (!showtime) return undefined;
 
-    const today = new Date();
-    const [hours, minutes] = showtime.time.split(':').map(Number);
-    const time = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hours, minutes);
-
-    const generateSeats = (rows: number, cols: number): Seat[][] => {
-        const seats: Seat[][] = [];
-        for (let i = 0; i < rows; i++) {
-            const row: Seat[] = [];
-            const rowChar = String.fromCharCode(65 + i);
-            for (let j = 0; j < cols; j++) {
-            const isUnavailable = Math.random() < 0.15;
-            row.push({
-                id: `${rowChar}${j + 1}`,
-                row: rowChar,
-                number: j + 1,
-                status: isUnavailable ? 'unavailable' : 'available',
-            });
-            }
-            seats.push(row);
-        }
-        return seats;
-    };
+    const time = parse(showtime.time, 'HH:mm', new Date());
     
     return {
         ...showtime,

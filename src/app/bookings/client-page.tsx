@@ -7,7 +7,7 @@ import { getShowtimeById, getMovieById, getTheaterById } from '@/lib/data';
 import type { Booking, Movie, Theater, Showtime } from '@/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Film, MapPin, Calendar, Clock, Ticket, Loader2 } from 'lucide-react';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -81,7 +81,9 @@ export function BookingsClientPage() {
         </div>
       ) : (
         <div className="space-y-6">
-          {enrichedBookings.map((booking) => (
+          {enrichedBookings.map((booking) => {
+            const showtimeDate = booking.showtime ? parse(booking.showtime.time, 'HH:mm', new Date()) : null;
+            return (
             <Card key={booking.id} className="overflow-hidden">
                 <div className="grid md:grid-cols-[120px_1fr] lg:grid-cols-[150px_1fr]">
                     <div className="relative h-48 md:h-full">
@@ -106,11 +108,11 @@ export function BookingsClientPage() {
                              <div className="text-sm text-muted-foreground space-y-2">
                                 <div className="flex items-center gap-2">
                                     <Calendar className="w-4 h-4" />
-                                    <span>{booking.showtime ? format(new Date(parseInt(booking.showtime.time)), 'EEEE, MMMM d, yyyy') : 'N/A'}</span>
+                                    <span>{showtimeDate ? format(showtimeDate, 'EEEE, MMMM d, yyyy') : 'N/A'}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <Clock className="w-4 h-4" />
-                                    <span>{booking.showtime ? format(new Date(parseInt(booking.showtime.time)), 'p') : 'N/A'}</span>
+                                    <span>{showtimeDate ? format(showtimeDate, 'p') : 'N/A'}</span>
                                 </div>
                             </div>
                              <div className="border-t pt-4">
@@ -135,7 +137,7 @@ export function BookingsClientPage() {
                     </div>
                 </div>
             </Card>
-          ))}
+          )})}
         </div>
       )}
     </div>

@@ -1,11 +1,11 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { theaters, getTheaterById } from '@/lib/data';
+import { getTheaterById } from '@/lib/data';
 import type { Showtime } from '@/types';
 import { format, parse } from 'date-fns';
 
@@ -13,22 +13,8 @@ type ShowtimeSelectorProps = {
   showtimes: Showtime[];
 };
 
-export default function ShowtimeSelector({ showtimes: initialShowtimes }: ShowtimeSelectorProps) {
+export default function ShowtimeSelector({ showtimes }: ShowtimeSelectorProps) {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [showtimes, setShowtimes] = useState<Showtime[]>([]);
-
-  useEffect(() => {
-      const today = new Date();
-      const updatedShowtimes = initialShowtimes.map(st => {
-          const time = parse(st.time, 'HH:mm', today);
-          return {
-              ...st,
-              time: time.valueOf().toString(),
-          }
-      })
-      setShowtimes(updatedShowtimes);
-
-  }, [initialShowtimes])
 
   const showtimesByTheater = showtimes.reduce((acc, showtime) => {
     const theaterId = showtime.theaterId;
@@ -59,13 +45,16 @@ export default function ShowtimeSelector({ showtimes: initialShowtimes }: Showti
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-3">
-                    {showtimesByTheater[theaterId].map((showtime) => (
-                      <Button key={showtime.id} asChild variant="outline" className="bg-background hover:bg-accent hover:border-primary/50">
-                        <Link href={`/book/${showtime.id}`}>
-                          {showtime.time ? format(new Date(parseInt(showtime.time)), 'p') : ''}
-                        </Link>
-                      </Button>
-                    ))}
+                    {showtimesByTheater[theaterId].map((showtime) => {
+                        const time = parse(showtime.time, 'HH:mm', new Date());
+                        return (
+                          <Button key={showtime.id} asChild variant="outline" className="bg-background hover:bg-accent hover:border-primary/50">
+                            <Link href={`/book/${showtime.id}`}>
+                              {format(time, 'p')}
+                            </Link>
+                          </Button>
+                        )
+                    })}
                   </div>
                 </CardContent>
               </Card>
