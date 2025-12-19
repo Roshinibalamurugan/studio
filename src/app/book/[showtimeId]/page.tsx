@@ -2,7 +2,7 @@
 import { notFound } from 'next/navigation';
 import { getShowtimeById, getMovieById, getTheaterById } from '@/lib/data';
 import { Clock, Film, MapPin, Calendar } from 'lucide-react';
-import { format, parse } from 'date-fns';
+import { format } from 'date-fns';
 import SeatSelection from '@/components/booking/seat-selection';
 import type { Seat } from '@/types';
 
@@ -49,7 +49,7 @@ export default async function BookingPage({ params }: BookingPageProps) {
     notFound();
   }
 
-  const showtimeDate = parse(showtime.time, 'HH:mm', new Date());
+  const showtimeDate = new Date(parseInt(showtime.time));
 
   return (
     <div className="container py-8">
