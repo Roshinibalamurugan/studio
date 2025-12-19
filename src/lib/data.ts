@@ -239,6 +239,15 @@ export let showtimes: Showtime[] = [
     { id: 'st8_today', movieId: '4', theaterId: 't2', time: '23:00', seats: [], price: 140 },
     { id: 'st9_today', movieId: '5', theaterId: 't3', time: '15:00', seats: [], price: 105 },
     { id: 'st10_today', movieId: '6', theaterId: 't1', time: '14:00', seats: [], price: 115 },
+    { id: 'st11_today', movieId: '7', theaterId: 't2', time: '19:30', seats: [], price: 180 },
+    { id: 'st12_today', movieId: '8', theaterId: 't3', time: '20:30', seats: [], price: 160 },
+    { id: 'st13_today', movieId: '9', theaterId: 't1', time: '18:00', seats: [], price: 140 },
+    { id: 'st14_today', movieId: '10', theaterId: 't2', time: '21:00', seats: [], price: 190 },
+    { id: 'st15_today', movieId: '12', theaterId: 't3', time: '19:00', seats: [], price: 200 },
+    { id: 'st16_today', movieId: '13', theaterId: 't1', time: '22:30', seats: [], price: 170 },
+    { id: 'st17_today', movieId: '14', theaterId: 't2', time: '17:30', seats: [], price: 130 },
+    { id: 'st18_today', movieId: '15', theaterId: 't3', time: '21:30', seats: [], price: 150 },
+
     // Tomorrow's showtimes
     { id: 'st1', movieId: '1', theaterId: 't1', time: '19:00', seats: [], price: 125 },
     { id: 'st2', movieId: '1', theaterId: 't1', time: '22:00', seats: [], price: 125 },
@@ -250,6 +259,14 @@ export let showtimes: Showtime[] = [
     { id: 'st8', movieId: '4', theaterId: 't2', time: '23:00', seats: [], price: 140 },
     { id: 'st9', movieId: '5', theaterId: 't3', time: '15:00', seats: [], price: 105 },
     { id: 'st10', movieId: '6', theaterId: 't1', time: '14:00', seats: [], price: 115 },
+    { id: 'st11', movieId: '7', theaterId: 't2', time: '19:30', seats: [], price: 180 },
+    { id: 'st12', movieId: '8', theaterId: 't3', time: '20:30', seats: [], price: 160 },
+    { id: 'st13', movieId: '9', theaterId: 't1', time: '18:00', seats: [], price: 140 },
+    { id: 'st14', movieId: '10', theaterId: 't2', time: '21:00', seats: [], price: 190 },
+    { id: 'st15', movieId: '12', theaterId: 't3', time: '19:00', seats: [], price: 200 },
+    { id: 'st16', movieId: '13', theaterId: 't1', time: '22:30', seats: [], price: 170 },
+    { id: 'st17', movieId: '14', theaterId: 't2', time: '17:30', seats: [], price: 130 },
+    { id: 'st18', movieId: '15', theaterId: 't3', time: '21:30', seats: [], price: 150 },
 ];
 
 export const getMovieById = (id: string) => movies.find(m => m.id === id);
